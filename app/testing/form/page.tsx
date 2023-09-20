@@ -55,7 +55,8 @@ export default function ProfileForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const res = await fetch('/api/calculoDevaluacion', {
-        method: 'POST', body: JSON.stringify(values)
+        method: 'POST', 
+        body: JSON.stringify(values)
       })
     } catch (error) {
       
