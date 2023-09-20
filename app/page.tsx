@@ -47,42 +47,31 @@ export default function Home() {
 
 
   return (
-    
-    <main className="min-h-screen flex flex-col justify-center items-center">
-      
-      <Card className="w-10/12 md:w-6/12 h-auto border-t-4 rounded-t-sm border-t-green-600">
-       <div className="flex justify-end px-2 py-1">
-            <ThemeToggler />
-        </div>
-        <CardHeader>
-          <CardTitle className="font-extrabold text-4xl mb-2">DevaluApp</CardTitle>
-          <CardDescription className="text-xl">¿Qué tan devaluado estás?</CardDescription>
-        </CardHeader>
-        <CardContent className="flex justify-center items-center">
-          {currentStepIndex === 0 && 
-            <Button onClick={() => {setCurrentStepIndex(1)}}
-                className="flex justify-between items-center gap-2 text-xl font-bold p-6 hover:border border-primary/50 ease-in-out duration-300" 
-                variant={'secondary'}>
-                <ArrowTopRightIcon className="h-6 w-6" />
-                Comenzar
-            </Button>
-          }
+        <>
+          <CardContent className="flex justify-center items-center">
+            {currentStepIndex === 0 && 
+              <Button onClick={() => {setCurrentStepIndex(1)}}
+                  className="flex justify-between items-center gap-2 text-xl font-bold p-6 hover:border border-primary/50 ease-in-out duration-300" 
+                  variant={'secondary'}>
+                  <ArrowTopRightIcon className="h-6 w-6" />
+                  Comenzar
+              </Button>
+            }
 
-          {step}
-        </CardContent>
-        <CardFooter className="flex justify-between">
-          {!isFirstStep && (
-              <Button variant={'outline'} onClick={back}>
-                <ArrowLeftIcon className="h-6 w-6" />
-              </Button>
-            )}
-          {!isLastStep && !(currentStepIndex === 0) &&  (
-              <Button variant={'outline'} onClick={next}>
-                <ArrowRightIcon className="h-6 w-6" />
-              </Button>
-            )}
-        </CardFooter>
-      </Card>
-    </main>
+            {step}
+          </CardContent>
+          <CardFooter className="flex justify-between">
+            {!isFirstStep && (
+                <Button variant={'outline'} onClick={back}>
+                  <ArrowLeftIcon className="h-6 w-6" />
+                </Button>
+              )}
+            {!isLastStep && !(currentStepIndex === 0) &&  (
+                <Button variant={'outline'} onClick={next}>
+                  <ArrowRightIcon className="h-6 w-6" />
+                </Button>
+              )}
+          </CardFooter>
+        </>
   )
 }
