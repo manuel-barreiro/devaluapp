@@ -1,4 +1,4 @@
-export async function fetchTodayValue(): Promise<void> {
+export async function fetchTodayValue(): Promise<number> {
     try {
       const res = await fetch('https://api.bluelytics.com.ar/v2/latest')
       const data = await res.json()
@@ -22,7 +22,7 @@ export function formatDate(date: Date | undefined): string {
     }
   }
 
-export async function fetchValue(date: Date | undefined): Promise<void> {
+export async function fetchValue(date: Date | undefined): Promise<number> {
     try {
       const formattedDate = formatDate(date)
       console.log('fetchValue fecha', formattedDate)

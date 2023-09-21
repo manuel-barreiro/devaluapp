@@ -4,21 +4,21 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
 import { fetchTodayValue, fetchValue, formatDate } from "@/lib/utils/functions";
 
-export default function Result({sueldoIngresado, fechaIngresada}: {sueldoIngresado: number, fechaIngresada: Date}) {
+export default function Result({resultado, sueldoIngresado, fechaIngresada}: {resultado: Object ,sueldoIngresado: number, fechaIngresada: Date}) {
+
+  const {valorHoy, valorFecha, dolaresHoy, dolaresFecha, porcentajeDevaluación} =  resultado
+  
   return (
     <>
         <p className="text-2xl font-bold">Resultado</p>
         <span>El {format(fechaIngresada, "PPP", { locale: es })} podías comprar: </span>
         <p className="text-2xl sm:text-3xl font-extrabold text-green-600">
-        500
+          {resultado.dolaresFecha} dólares
         </p>
         <span className="">Hoy comprás:</span>
         <p className="text-2xl sm:text-3xl font-extrabold text-red-600">
-        100
+          {resultado.dolaresHoy} dólares
         </p>
     </>
   )
 }
-
-
-

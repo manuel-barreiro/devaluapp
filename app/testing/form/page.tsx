@@ -65,12 +65,12 @@ export default function ProfileForm() {
       })
       const data = await res.json()
       console.log(data)
+      setResultado(data)
     } catch (error: any) {
         throw new Error(error.message)
     }
 
   }
-
 
   // Calendar functionality
   const disabledDays = [
@@ -81,14 +81,22 @@ export default function ProfileForm() {
   // Multi-step form functionality
   const [formStep, setFormStep] = useState(0)
 
-  // states
+  // States de las variables sueldo y fechaUltimoAumento
   const [sueldoIngresado, setSueldoIngresado] = useState(0)
   const [fechaIngresada, setFechaIngresada] = useState(new Date())
+  const [resultado, setResultado] = useState({
+        valorHoy: 0,
+        valorFecha: 0,
+        dolaresHoy: 0,
+        dolaresFecha: 0,
+        porcentajeDevaluación: 0
+  })
 
   useEffect(() => {
     console.log("Sueldo ingresado:", sueldoIngresado);
-    console.log("Fecha ingresado:", fechaIngresada);  
-  }, [sueldoIngresado, fechaIngresada])
+    console.log("Fecha ingresado:", fechaIngresada);
+    console.log("Resultado ingresado:", resultado);   
+  }, [sueldoIngresado, fechaIngresada, resultado])
 
   return (
     <CardContent className="flex justify-center items-center">
@@ -180,7 +188,7 @@ export default function ProfileForm() {
           {/* Resultado */}
           <div className={cn('flex flex-col justify-between gap-2', {hidden: formStep !== 4})}>
           
-            <Result sueldoIngresado={sueldoIngresado} fechaIngresada={fechaIngresada} />
+            <Result resultado={resultado} sueldoIngresado={sueldoIngresado} fechaIngresada={fechaIngresada} />
 
           </div>
 
@@ -246,7 +254,7 @@ export default function ProfileForm() {
                   Calculá
                 </Button>
                 
-              </div>
+          </div>
 
         </form>
       </Form>
