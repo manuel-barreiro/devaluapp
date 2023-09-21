@@ -29,6 +29,8 @@ import { addDays, format } from "date-fns"
 import { cn } from "@/lib/utils"
 import { es } from "date-fns/locale"
 
+import Result from "@/components/Result"
+
 const formSchema = z.object({
   sueldo: z.coerce.number({
     required_error: "Ingresá un valor.",
@@ -55,12 +57,14 @@ export default function ProfileForm() {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setFormStep(4)
     try {
       const res = await fetch('/api/calculoDevaluacion', {
         method: 'POST', 
         body: JSON.stringify(values)
       })
       const data = await res.json()
+      console.log(data)
     } catch (error: any) {
         throw new Error(error.message)
     }
@@ -76,7 +80,6 @@ export default function ProfileForm() {
 
   // Multi-step form functionality
   const [formStep, setFormStep] = useState(0)
-  console.log(formStep)
 
   // states
   const [sueldoIngresado, setSueldoIngresado] = useState(0)
@@ -173,6 +176,13 @@ export default function ProfileForm() {
               <span className="">Cobrás ese monto desde:</span>
               <p className="text-2xl sm:text-3xl font-extrabold text-green-600">{format(fechaIngresada, "PPP", { locale: es })}</p>
           </div>
+          
+          {/* Resultado */}
+          <div className={cn('flex flex-col justify-between gap-2', {hidden: formStep !== 4})}>
+          
+            <Result sueldoIngresado={sueldoIngresado} fechaIngresada={fechaIngresada} />
+
+          </div>
 
           {/* Botones Volver/Siguiente/Submit */}
           <div className="flex justify-between items-center">
@@ -201,6 +211,7 @@ export default function ProfileForm() {
                   onClick={() => {
                     // validation
                     if (formStep == 1) {
+                      form.trigger("sueldo");
                       const sueldoInputState = form.getFieldState("sueldo");
                       if (!sueldoInputState.isDirty || sueldoInputState.invalid) {
                         return;
@@ -209,6 +220,7 @@ export default function ProfileForm() {
                           setFormStep(2);
                           }
                     } else if (formStep == 2) { 
+                      form.trigger("fechaUltimoAumento");
                       const fechaInputState = form.getFieldState("fechaUltimoAumento");
                       if (!fechaInputState.isDirty || fechaInputState.invalid) {
                         return;
