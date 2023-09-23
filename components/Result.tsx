@@ -14,7 +14,7 @@ type Resultado = {
 
 export default function Result({resultado, sueldoIngresado, fechaIngresada}: {resultado: Resultado ,sueldoIngresado: number, fechaIngresada: Date}) {
 
-  const {valorHoy, valorFecha, dolaresHoy, dolaresFecha, porcentajeDevaluación} =  resultado
+  const {dolaresHoy, dolaresFecha, porcentajeDevaluación} =  resultado
   
   return (
     <>
