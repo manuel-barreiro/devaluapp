@@ -4,7 +4,15 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
 import { fetchTodayValue, fetchValue, formatDate } from "@/lib/utils/functions";
 
-export default function Result({resultado, sueldoIngresado, fechaIngresada}: {resultado: Object ,sueldoIngresado: number, fechaIngresada: Date}) {
+type Resultado = {
+  valorHoy: number,
+  valorFecha: number,
+  dolaresHoy: number,
+  dolaresFecha: number,
+  porcentajeDevaluación: number
+}
+
+export default function Result({resultado, sueldoIngresado, fechaIngresada}: {resultado: Resultado ,sueldoIngresado: number, fechaIngresada: Date}) {
 
   const {valorHoy, valorFecha, dolaresHoy, dolaresFecha, porcentajeDevaluación} =  resultado
   
@@ -13,12 +21,18 @@ export default function Result({resultado, sueldoIngresado, fechaIngresada}: {re
         <p className="text-2xl font-bold">Resultado</p>
         <span>El {format(fechaIngresada, "PPP", { locale: es })} podías comprar: </span>
         <p className="text-2xl sm:text-3xl font-extrabold text-green-600">
-          {resultado.dolaresFecha} dólares
+          {dolaresFecha} dólares
         </p>
         <span className="">Hoy comprás:</span>
         <p className="text-2xl sm:text-3xl font-extrabold text-red-600">
-          {resultado.dolaresHoy} dólares
+          {dolaresHoy} dólares
         </p>
+        <span className="">Te devaluaste un:</span>
+        <p className="text-2xl sm:text-3xl font-extrabold text-red-600">
+          {porcentajeDevaluación} %
+        </p>
+        
     </>
   )
+
 }

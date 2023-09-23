@@ -81,16 +81,18 @@ export default function ProfileForm() {
   // Multi-step form functionality
   const [formStep, setFormStep] = useState(0)
 
+  type Resultado = {
+    valorHoy: number,
+    valorFecha: number,
+    dolaresHoy: number,
+    dolaresFecha: number,
+    porcentajeDevaluación: number
+  }
+
   // States de las variables sueldo y fechaUltimoAumento
   const [sueldoIngresado, setSueldoIngresado] = useState(0)
   const [fechaIngresada, setFechaIngresada] = useState(new Date())
-  const [resultado, setResultado] = useState({
-        valorHoy: 0,
-        valorFecha: 0,
-        dolaresHoy: 0,
-        dolaresFecha: 0,
-        porcentajeDevaluación: 0
-  })
+  const [resultado, setResultado] = useState({} as Resultado)
 
   useEffect(() => {
     console.log("Sueldo ingresado:", sueldoIngresado);
