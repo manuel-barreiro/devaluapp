@@ -114,7 +114,7 @@ export default function DevaluApp() {
       </span>
 
       <CardHeader>
-        <CardTitle className="font-black text-3xl mb-1 bg-gradient-to-b from-gray-900 to-gray-600 
+        <CardTitle className="font-black text-4xl bg-gradient-to-b from-gray-900 to-gray-600 
         dark:bg-gradient-to-r dark:from-slate-300 dark:to-slate-500 bg-clip-text text-transparent">
           Devalu<span className="bg-gradient-to-r from-emerald-500 to-lime-600 bg-clip-text text-transparent">App</span> 
         </CardTitle>
@@ -161,7 +161,7 @@ export default function DevaluApp() {
               control={form.control}
               name="fechaUltimoAumento"
               render={({ field }) => (
-                <FormItem className="flex flex-col -mt-8">
+                <FormItem className="flex flex-col">
                   <FormLabel className="text-xs sm:text-sm">Desde cuándo cobrás ese monto?</FormLabel>
                   <Popover>
                     <PopoverTrigger asChild>
@@ -277,6 +277,7 @@ export default function DevaluApp() {
                       hidden: formStep !== 3,
                     })}
                   >
+                    <ArrowTopRightIcon className="h-4 w-4 mr-1" />
                     Calculá
                   </Button>
                   
