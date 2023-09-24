@@ -1,8 +1,8 @@
+"use client";
+
 import { format } from "date-fns"
 import { es } from "date-fns/locale"
 import { Skeleton } from "@/components/ui/skeleton";
-import { Suspense } from "react";
-import { fetchTodayValue, fetchValue, formatDate } from "@/lib/utils/functions";
 
 type Resultado = {
   valorHoy: number,
@@ -12,25 +12,46 @@ type Resultado = {
   porcentajeDevaluación: number
 }
 
-export default function Result({resultado, sueldoIngresado, fechaIngresada}: {resultado: Resultado ,sueldoIngresado: number, fechaIngresada: Date}) {
-
-  const {dolaresHoy, dolaresFecha, porcentajeDevaluación} =  resultado
+export default function Result({
+  isLoading, 
+  resultado, 
+  sueldoIngresado, 
+  fechaIngresada}: {
+    isLoading: boolean,
+    resultado: Resultado,
+    sueldoIngresado: number, 
+    fechaIngresada: Date}) {
   
   return (
     <>
         <p className="text-2xl font-bold">Resultado</p>
         <span>El {format(fechaIngresada, "PPP", { locale: es })} podías comprar: </span>
-        <p className="text-2xl sm:text-3xl font-extrabold text-green-600">
-          {dolaresFecha} dólares
-        </p>
+        
+        {isLoading ? (
+            <Skeleton className="w-full h-8" />
+          ) : (
+            <p className="text-2xl sm:text-3xl font-extrabold text-green-600">
+              {resultado.dolaresFecha} dólares
+            </p>
+          )} 
+
+        
         <span className="">Hoy comprás:</span>
-        <p className="text-2xl sm:text-3xl font-extrabold text-red-600">
-          {dolaresHoy} dólares
-        </p>
+        {isLoading ? (
+            <Skeleton className="w-full h-8" />
+          ) : (
+            <p className="text-2xl sm:text-3xl font-extrabold text-red-600">
+              {resultado.dolaresHoy} dólares
+            </p>
+          )} 
         <span className="">Te devaluaste un:</span>
-        <p className="text-2xl sm:text-3xl font-extrabold text-red-600">
-          {porcentajeDevaluación} %
-        </p>
+        {isLoading ? (
+            <Skeleton className="w-full h-8" />
+          ) : (
+            <p className="text-2xl sm:text-3xl font-extrabold text-red-600">
+              {resultado.porcentajeDevaluación} %
+            </p>
+          )} 
         
     </>
   )
