@@ -32,6 +32,7 @@ import { es } from "date-fns/locale"
 import Result from "@/components/Result"
 import { Progress } from "@/components/ui/progress"
 import ThemeToggler from "@/components/ThemeToggler"
+import { Separator } from "@/components/ui/separator"
 
 const formSchema = z.object({
   sueldo: z.coerce.number({
@@ -85,8 +86,9 @@ export default function DevaluApp() {
   useEffect(() => {
     console.log("Sueldo ingresado:", sueldoIngresado);
     console.log("Fecha ingresado:", fechaIngresada);
-    console.log("Resultado ingresado:", resultado);   
-  }, [sueldoIngresado, fechaIngresada, resultado])
+    console.log("Resultado ingresado:", resultado);
+    console.log("PASO:", formStep)   
+  }, [sueldoIngresado, fechaIngresada, resultado, formStep])
 
     // FORM SUBMIT HANDLER
     async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -122,12 +124,12 @@ export default function DevaluApp() {
       </CardHeader>
 
 
-      <CardContent className="flex justify-center items-center">
+      <CardContent>
 
         {/* Botón Comenzar */}
         {formStep === 0 && 
           <Button onClick={() => {setFormStep(1)}}
-              className="flex justify-between items-center gap-2 text-xl font-bold p-6 hover:border border-primary/50 ease-in-out duration-300" 
+              className="flex justify-between items-center mx-auto gap-2 text-xl font-bold p-6 hover:border border-primary/50 ease-in-out duration-300" 
               variant={'secondary'}>
               <ArrowTopRightIcon className="h-6 w-6" />
               Comenzar
@@ -136,39 +138,40 @@ export default function DevaluApp() {
 
         {/* Formulario */}
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-8">
+          <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="flex flex-col gap-8">
 
             {/* Input Sueldo */}
-            <div className={cn({hidden: formStep !== 1})}>
+            <div className={cn('self-center',{hidden: formStep !== 1})}>
               <FormField
                 control={form.control}
                 name="sueldo"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel className="text-xs sm:text-sm">Ingresá tu sueldo en pesos.</FormLabel>
+                    <FormLabel className="text-md sm:text-lg">Ingresá tu sueldo en pesos.</FormLabel>
                     <FormControl>
-                      <Input type="number" {...field} value={field.value || ''} className="bg-primary/20 border border-primary/60 p-6 text-2xl text-center font-bold rounded-md"/>
+                      <Input type="number" {...field} value={field.value || ''} className="bg-primary/20 border border-primary/60 p-6 text-2xl text-center font-bold rounded-md max-w-[600px]"/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
             </div>
+
             
             {/* Input Fecha Ultimo Aumento */}
-            <div className={cn({hidden: formStep !== 2})}>
+            <div className={cn('self-center', {hidden: formStep !== 2})}>
               <FormField
               control={form.control}
               name="fechaUltimoAumento"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel className="text-xs sm:text-sm">Desde cuándo cobrás ese monto?</FormLabel>
+                  <FormLabel className="text-md sm:text-lg">¿Desde cuándo cobrás ese monto?</FormLabel>
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
                         <Button
                           variant={"outline"}
-                          className="bg-primary/20 border border-primary/60 p-6 text-sm sm:text-lg text-center font-bold rounded-md"
+                          className="bg-primary/20 border border-primary/60 p-6 text-sm md:text-2xl text-center font-bold rounded-md max-w-[600px]"
                         >
                           {field.value ? (
                             format(field.value, "PPP", { locale: es })
@@ -198,25 +201,56 @@ export default function DevaluApp() {
             </div>
             
             {/* Confirmación */}
-            <div className={cn('flex flex-col justify-between gap-2',{hidden: formStep !== 3})}>
-                <p className="text-2xl font-bold">Confirmá tus datos</p>
-                <span>Sueldo:</span>
-                <p className="text-2xl sm:text-3xl font-extrabold text-green-600">
+            <div className={cn('self-center flex flex-col justify-between gap-3',{hidden: formStep !== 3})}>
+                <p className="font-black text-2xl bg-gradient-to-b from-gray-900 to-gray-600 
+                  dark:bg-gradient-to-r dark:from-slate-300 dark:to-slate-500 bg-clip-text text-transparent">
+                  Confirmá tus datos
+                </p>
+                <span className="font-extrabold text-md bg-gradient-to-b from-gray-900 to-gray-600 
+                  dark:bg-gradient-to-r dark:from-slate-300 dark:to-slate-500 bg-clip-text text-transparent">
+                    Sueldo:
+                </span>
+                <p className="text-2xl sm:text-3xl font-black bg-gradient-to-r from-emerald-500 to-lime-600 bg-clip-text text-transparent">
                   {`$ ${new Intl.NumberFormat('es-sp', { style: 'currency', currency: 'ARS' }).format(sueldoIngresado)}`}
                 </p>
-                <span className="">Cobrás ese monto desde:</span>
-                <p className="text-2xl sm:text-3xl font-extrabold text-green-600">{format(fechaIngresada, "PPP", { locale: es })}</p>
+                <span className="font-black text-md bg-gradient-to-b from-gray-900 to-gray-600 
+                  dark:bg-gradient-to-r dark:from-slate-300 dark:to-slate-500 bg-clip-text text-transparent">
+                    Cobrás ese monto desde:
+                </span>
+                <p className="text-2xl sm:text-3xl font-black bg-gradient-to-r from-emerald-500 to-lime-600 bg-clip-text text-transparent">
+                  {format(fechaIngresada, "PPP", { locale: es })}
+                </p>
+
+                {/* Botón Submit */}
+                <Button
+                    type="submit"
+                    className={cn("mt-4 bg-gradient-to-r from-emerald-500 to-lime-600 font-bold",{
+                      hidden: formStep !== 3,
+                    })}
+                  >
+                    <ArrowTopRightIcon className="h-4 w-4 mr-1" />
+                    Calculá
+                  </Button>
             </div>
             
-            {/* Resultado */}
-            <div className={cn('flex flex-col justify-between gap-2', {hidden: formStep !== 4})}>
+
             
-              <Result isLoading={isLoading} resultado={resultado} sueldoIngresado={sueldoIngresado} fechaIngresada={fechaIngresada} />
+            
+            
+          </form>
+        </Form>
 
-            </div>
+        {/* Resultado */}
+        <div className={cn('flex flex-col justify-between gap-2', {hidden: formStep !== 4 && formStep !== 5 })}>
+              
+          <Result formStep={formStep} isLoading={isLoading} resultado={resultado} sueldoIngresado={sueldoIngresado} fechaIngresada={fechaIngresada} />
 
-            {/* Botones Volver/Siguiente/Submit */}
-            <div className="flex justify-between items-center">
+        </div>
+        
+      </CardContent>
+      
+      {/* Botones Volver/Siguiente */}
+      <div className="flex justify-between items-center pb-3 px-3">
                   {/* Botón Volver */}
                   <Button
                     type="button"
@@ -262,33 +296,16 @@ export default function DevaluApp() {
                             setFechaIngresada(form.getValues("fechaUltimoAumento"))
                             setFormStep(3);
                             }
-                      }
-
-                      }}
+                      } else if (formStep == 4) {
+                        setFormStep(5)
+                      }}}
                   >
                     Siguiente
                     <ArrowRightIcon className="w-4 h-4 ml-2" />
                   </Button>
 
-                  {/* Botón Submit */}
-                  <Button
-                    type="submit"
-                    className={cn({
-                      hidden: formStep !== 3,
-                    })}
-                  >
-                    <ArrowTopRightIcon className="h-4 w-4 mr-1" />
-                    Calculá
-                  </Button>
                   
-            </div>
-            
-            
-          </form>
-        </Form>
-        
-      </CardContent>
-
+      </div>
 
     </Card>
   )

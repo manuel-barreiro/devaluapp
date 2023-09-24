@@ -21,7 +21,7 @@ export async function POST(request: Request) {
         valorFecha: valorDolarFecha,
         dolaresHoy: Number(dolaresHoy.toFixed(2)),
         dolaresFecha: Number(dolaresFecha.toFixed(2)),
-        porcentajeDevaluación: Number(porcentajeDevaluación.toFixed(2))
+        porcentajeDevaluación: Number(porcentajeDevaluación.toFixed(1))
     }
         , {status: 200});
 }
