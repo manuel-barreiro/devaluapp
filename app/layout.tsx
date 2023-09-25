@@ -11,17 +11,24 @@ export const metadata: Metadata = {
   title: 'DevaluApp',
   description: 'Calculá cuanto se devalúa tu sueldo en Argentina',
   metadataBase: new URL("https://www.devaluapp.ar/"),
-    keywords: ['Calculadora', 'Devaluacion', 'Inflacion', 'Dolares', 'Argentina', 'Sueldo'],
-    alternates: {
-      canonical: "https://www.devaluapp.ar/"
-    },
-    themeColor: 'black',
-    openGraph: {
-      title: 'DevaluApp',
-      description: 'Calculá cuanto se devalúa tu sueldo en Argentina',
-      type: "website",
-      url: "https://www.devaluapp.ar/"
-    },
+  keywords: ['Calculadora', 'Devaluacion', 'Inflacion', 'Dolares', 'Argentina', 'Sueldo'],
+  alternates: {
+    canonical: "https://www.devaluapp.ar/"
+  },
+  themeColor: 'black',
+  openGraph: {
+    title: 'DevaluApp',
+    description: 'Calculá cuanto se devalúa tu sueldo en Argentina',
+    type: "website",
+    url: "https://www.devaluapp.ar/"
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'DevaluApp',
+    description: 'Calculá cuanto se devalúa tu sueldo en Argentina',
+    creator: '@ing_Barreiro',
+    images: ['https://devaluapp.ar/twitter-image.png'],
+  },
 }
 
 export default function RootLayout({
