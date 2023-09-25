@@ -6,11 +6,11 @@ import * as z from "zod"
 import JSConfetti from 'js-confetti'
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
+import Image from "next/image"
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+  TwitterShareButton,
+  WhatsappShareButton,
+} from 'next-share'
 import { toast } from "@/components/ui/use-toast"
 import {
   Form,
@@ -32,6 +32,14 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { useEffect, useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -44,7 +52,6 @@ import Result from "@/components/Result"
 import { Progress } from "@/components/ui/progress"
 import ThemeToggler from "@/components/ThemeToggler"
 
-import Image from "next/image"
 
 const formSchema = z.object({
   sueldo: z.coerce.number({
@@ -53,7 +60,7 @@ const formSchema = z.object({
   })
   .int({message: 'Ingresá un número entero.'})
   .positive({	message: 'El valor ingresado debe ser > 0' })
-  .gte(5000, {	message: '¿Posta cobrás eso?' })
+  // .gte(5000, {	message: '¿Posta cobrás eso?' })
   .lte(999999999, {	message: 'Si te garparan eso no estarías acá.' }),
 
   fechaUltimoAumento: z.date({
@@ -295,7 +302,51 @@ export default function DevaluApp() {
                     </Button>
                     
                     {/* Compartir */}
-                    <Button
+                    <DropdownMenu>
+                      <DropdownMenuTrigger className={cn(
+                        "border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 p-2 px-4",{
+                            hidden: formStep !== 4 && formStep !== 5,
+                          })}>
+                          <UploadIcon className="h-4 w-4 mr-2" />
+                          Compartir
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        <DropdownMenuItem>
+                        <TwitterShareButton
+                          url={'https://devaluapp.ar/'}
+                          title={`Me devalué un ${resultado.porcentajeDevaluación?.toString().replace('.', ',')}% 🔥, calculá cuanto te devaluaste con DevaluApp.`}
+                          blankTarget={true}
+                        >
+                          <span className="flex gap-2">
+                            <Image priority={true} src={'/x-twitter.svg'} width={15} height={15} alt='share on twitter' ></Image>
+                            Twitter
+                          </span>
+                        </TwitterShareButton>
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem>
+                        <WhatsappShareButton
+                          url={'https://devaluapp.ar/'}
+                          title={`Me devalué un ${resultado.porcentajeDevaluación?.toString().replace('.', ',')}% 🔥, calculá cuanto te devaluaste con DevaluApp.`}
+                          separator=":: "
+                        >
+                          <span className="flex gap-2">
+                            <Image priority={true} src={'/whatsapp.svg'} width={15} height={15} alt='share on whatsapp' ></Image>
+                            Whatsapp
+                          </span>
+                        </WhatsappShareButton>
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                          <DropdownMenuItem className="flex gap-2">
+                            <Image priority={true} src={'/copy-solid.svg'} width={15} height={15} alt='copy to clipboard' color="white" ></Image>
+                            Copiar enlace
+                          </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+
+
+                    {/* Compartir */}
+                    {/* <Button
                       type="button"
                       variant={"secondary"}
                       className={cn({
@@ -304,7 +355,7 @@ export default function DevaluApp() {
                     >
                       <UploadIcon className="h-4 w-4 mr-2" />
                       Compartir
-                  </Button>
+                  </Button> */}
                     
                     {/* Botón Siguiente */}
                     <Button
@@ -337,7 +388,7 @@ export default function DevaluApp() {
                           setFormStep(5)
                         }}}
                     >
-                      { formStep > 3 ? "Más datos" : "Siguiente" }
+                      { formStep > 3 ? "Más" : "Siguiente" }
                       <ArrowRightIcon className="w-4 h-4 ml-2" />
                     </Button>
 
