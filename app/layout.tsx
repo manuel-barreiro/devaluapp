@@ -17,7 +17,6 @@ export const metadata: Metadata = {
     },
     themeColor: 'black',
     openGraph: {
-      images: '/favicon.ico',
       title: 'DevaluApp',
       description: 'Calculá cuanto se devalúa tu sueldo en Argentina',
       type: "website",
