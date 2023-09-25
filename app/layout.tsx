@@ -10,6 +10,19 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'DevaluApp',
   description: 'Calculá cuanto se devalúa tu sueldo en Argentina',
+  metadataBase: new URL("https://www.devaluapp.ar/"),
+    keywords: ['Calculadora', 'Devaluacion', 'Inflacion', 'Dolares', 'Argentina', 'Sueldo'],
+    alternates: {
+      canonical: "https://www.devaluapp.ar/"
+    },
+    themeColor: 'black',
+    openGraph: {
+      images: '/favicon.ico',
+      title: 'DevaluApp',
+      description: 'Calculá cuanto se devalúa tu sueldo en Argentina',
+      type: "website",
+      url: "https://www.devaluapp.ar/"
+    },
 }
 
 export default function RootLayout({
