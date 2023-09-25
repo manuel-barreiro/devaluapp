@@ -60,7 +60,7 @@ export default function Result({
       {/* Dolares Fecha vs Dolares Hoy */}
       <div className={cn("self-center h-auto flex flex-col gap-3", {hidden: formStep !== 5} )}>
 
-        <span className="font-black text-xs sm:text-2xl bg-gradient-to-b from-gray-900 to-gray-600 
+        <span className="font-black text-sm sm:text-2xl bg-gradient-to-b from-gray-900 to-gray-600 
             dark:bg-gradient-to-r dark:from-slate-300 dark:to-slate-500 bg-clip-text text-transparent">
               El {format(fechaIngresada, "PPP", { locale: es })} podías comprar: 
         </span>
@@ -68,7 +68,7 @@ export default function Result({
         {isLoading ? (
             <Skeleton className="w-full h-8" />
           ) : (
-            <p className={cn("text-3xl sm:text-5xl font-black",
+            <p className={cn("text-4xl sm:text-6xl font-black",
               resultado.porcentajeDevaluación > 0 ? "bg-gradient-to-r from-green-500 to-green-800 bg-clip-text text-transparent" : "bg-gradient-to-r from-red-500 to-red-800 bg-clip-text text-transparent"
             )}>
               {new Intl.NumberFormat('es-sp', { style: 'currency', currency: 'USD' }).format(resultado.dolaresFecha)}
@@ -76,7 +76,7 @@ export default function Result({
           )} 
 
         
-        <span className="font-black text-xs sm:text-2xl bg-gradient-to-b from-gray-900 to-gray-600 
+        <span className="font-black text-sm sm:text-2xl bg-gradient-to-b from-gray-900 to-gray-600 
         dark:bg-gradient-to-r dark:from-slate-300 dark:to-slate-500 bg-clip-text text-transparent">
           Hoy comprás:
         </span>
@@ -84,7 +84,7 @@ export default function Result({
         {isLoading ? (
             <Skeleton className="w-full h-8" />
           ) : (
-            <p className={cn("text-3xl sm:text-5xl font-black",
+            <p className={cn("text-4xl sm:text-6xl font-black",
               resultado.porcentajeDevaluación > 0 ? "bg-gradient-to-r from-red-500 to-red-800 bg-clip-text text-transparent" : "bg-gradient-to-r from-green-500 to-green-800 bg-clip-text text-transparent"
             )}>
               {new Intl.NumberFormat('es-sp', { style: 'currency', currency: 'USD' }).format(resultado.dolaresHoy)}
