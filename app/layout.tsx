@@ -21,11 +21,6 @@ export const metadata: Metadata = {
     description: 'Calculá cuanto se devaluó tu sueldo en Argentina',
     url: 'https://devaluapp.ar/',
     type: 'website',
-    images: [{
-      url: 'https://www.devaluapp.ar/twitter-image.png',
-      width: 1200,
-      height: 630,
-    }],
   }
 }
 
@@ -36,12 +31,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      <head>
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="DevaluApp" />
-        <meta name="twitter:description" content="Calculá cuanto se devaluó tu sueldo en Argentina" />
-        <meta name="twitter:image" content="https://www.devaluapp.ar/twitter-image.png" />
-      </head>
       <body className={inter.className}>
         <ThemeProvider
             attribute="class"
