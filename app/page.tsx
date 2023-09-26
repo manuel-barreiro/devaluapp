@@ -149,7 +149,7 @@ export default function DevaluApp() {
           dark:bg-gradient-to-r dark:from-slate-300 dark:to-slate-500 bg-clip-text text-transparent">
             Devalu<span className="bg-gradient-to-r from-emerald-500 to-lime-600 bg-clip-text text-transparent">App</span> 
           </CardTitle>
-          <CardDescription className="text-lg">¿Qué tan devaluado estás?</CardDescription>
+          <CardDescription className="text-lg font-bold">¿Qué tan devaluado estás?</CardDescription>
         </CardHeader>
 
 
