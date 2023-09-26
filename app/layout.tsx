@@ -16,6 +16,17 @@ export const metadata: Metadata = {
     canonical: "https://devaluapp.ar/"
   },
   themeColor: 'black',
+  openGraph: {
+    title: 'DevaluApp',
+    description: 'Calculá cuanto se devaluó tu sueldo en Argentina',
+    url: 'https://devaluapp.ar/',
+    type: 'website',
+    images: [{
+      url: 'https://www.devaluapp.ar/twitter-image.png',
+      width: 1200,
+      height: 630,
+    }],
+  }
 }
 
 export default function RootLayout({
