@@ -10,10 +10,10 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'DevaluApp',
   description: 'Calculá cuanto se devaluó tu sueldo en Argentina',
-  metadataBase: new URL("https://www.devaluapp.ar/"),
+  metadataBase: new URL("https://devaluapp.ar/"),
   keywords: ['Calculadora', 'Devaluacion', 'Inflacion', 'Dolares', 'Argentina', 'Sueldo'],
   alternates: {
-    canonical: "https://www.devaluapp.ar/"
+    canonical: "https://devaluapp.ar/"
   },
   themeColor: 'black',
 }
@@ -25,6 +25,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
+      <head>
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="DevaluApp" />
+        <meta name="twitter:description" content="Calculá cuanto se devaluó tu sueldo en Argentina" />
+        <meta name="twitter:image" content="https://www.devaluapp.ar/twitter-image.png" />
+      </head>
       <body className={inter.className}>
         <ThemeProvider
             attribute="class"
