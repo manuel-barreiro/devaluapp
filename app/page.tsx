@@ -11,7 +11,7 @@ import {
   TwitterShareButton,
   WhatsappShareButton,
 } from 'next-share'
-import { toast } from "@/components/ui/use-toast"
+import { useToast  } from "@/components/ui/use-toast"
 import {
   Form,
   FormControl,
@@ -69,6 +69,10 @@ const formSchema = z.object({
 })
 
 export default function DevaluApp() {
+
+  // toast hook
+  const { toast } = useToast()
+
   // REACT-HOOK-FORM INITIALIZATION
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -109,36 +113,36 @@ export default function DevaluApp() {
     console.log("PASO:", formStep)   
   }, [sueldoIngresado, fechaIngresada, resultado, formStep])
 
-    // FORM SUBMIT HANDLER
-    async function onSubmit(values: z.infer<typeof formSchema>) {
-      setFormStep(4)
-      try {
-        const res = await fetch('/api/calculoDevaluacion', {
-          method: 'POST', 
-          body: JSON.stringify(values)
-        })
-        const data = await res.json()
-        console.log(data)
-        setResultado(data)
-        setLoading(false)
-        const jsConfetti = new JSConfetti()
-        jsConfetti.addConfetti({
-          emojis: ['💵','🔥'],
-          emojiSize: 60,
-          confettiNumber: 200,
-          // confettiColors: [
-          //   '#22c55e',
-          // ],
-        })
-      } catch (error: any) {
-          throw new Error(error.message)
+  // FORM SUBMIT HANDLER
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setFormStep(4)
+      const res = await fetch('/api/calculoDevaluacion', {
+        method: 'POST', 
+        body: JSON.stringify(values)
+      })
+      if (!res.ok) {
+        throw new Error('Boca')
       }
-    }
+      const data = await res.json()
+      console.log(data)
+      setResultado(data)
+      setLoading(false)
+      const jsConfetti = new JSConfetti()
+      jsConfetti.addConfetti({
+        emojis: ['💵','🔥'],
+        emojiSize: 60,
+        confettiNumber: 200,
+        // confettiColors: [
+        //   '#22c55e',
+        // ],
+      })
+     
+  }
   
 
   return (
 
-      <Card className="w-10/12 md:w-6/12 h-auto border-t-4 rounded-t-sm border-primary relative">
+      <Card className="w-10/12 lg:w-6/12 h-auto border-t-4 rounded-t-sm border-primary relative">
         <Progress value={(formStep/4)*100} />
         <span className="absolute top-6 right-4">
           <ThemeToggler />
@@ -167,7 +171,7 @@ export default function DevaluApp() {
 
           {/* Formulario */}
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="flex flex-col gap-8">
+            <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="flex flex-col items-center gap-8">
 
               {/* Input Sueldo */}
               <div className={cn('self-center',{hidden: formStep !== 1})}>
@@ -213,7 +217,7 @@ export default function DevaluApp() {
                       </AlertDialogTrigger>
                       <AlertDialogContent className="flex flex-col items-center gap-10">
                       <AlertDialogHeader>
-                        <AlertDialogTitle>Seleccioná la fecha de tu último aumento.</AlertDialogTitle>
+                        <AlertDialogTitle className="text-2xl text-center">Seleccioná la fecha de tu último aumento.</AlertDialogTitle>
                         </AlertDialogHeader>
                           <Calendar
                             mode="single"
@@ -224,9 +228,9 @@ export default function DevaluApp() {
                             disabled={disabledDays}
                             className="rounded-md border flex justify-center items-center w-64 h-auto hover:border-primary/50 ease-in-out duration-300"
                           />
-                        <div className="flex flex-nowrap items-center gap-3">
-                          <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                          <AlertDialogAction>Seleccionar</AlertDialogAction>
+                        <div className="flex items-center gap-3">
+                          <AlertDialogCancel className="m-0">Cancelar</AlertDialogCancel>
+                          <AlertDialogAction className="m-0">Seleccionar</AlertDialogAction>
                         </div>
                       </AlertDialogContent>
                     </AlertDialog>
@@ -273,7 +277,7 @@ export default function DevaluApp() {
           </Form>
 
           {/* Resultado */}
-          <div className={cn('flex flex-col justify-between gap-2', {hidden: formStep !== 4 && formStep !== 5 })}>
+          <div className={cn('flex flex-col justify-between items-center gap-2', {hidden: formStep !== 4 && formStep !== 5  && formStep !== 6 })}>
                 
             <Result formStep={formStep} isLoading={isLoading} resultado={resultado} sueldoIngresado={sueldoIngresado} fechaIngresada={fechaIngresada} />
 
@@ -305,7 +309,7 @@ export default function DevaluApp() {
                     <DropdownMenu>
                       <DropdownMenuTrigger className={cn(
                         "border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 p-2 px-4",{
-                            hidden: formStep !== 4 && formStep !== 5,
+                            hidden: formStep !== 4 && formStep !== 5 && formStep !== 6,
                           })}>
                           <UploadIcon className="h-4 w-4 mr-2" />
                           Compartir
@@ -339,32 +343,23 @@ export default function DevaluApp() {
                           <DropdownMenuItem className="flex gap-2 items-center cursor-pointer" 
                           onClick={() => {
                             navigator.clipboard.writeText(`Me devalué un ${resultado.porcentajeDevaluación?.toString().replace('.', ',')}% 🔥. Calculá cuanto te devaluaste con DevaluApp. https://devaluapp.ar/`);
+                            toast({
+                              title: "Copiado al portapapeles",
+                              description: "¡Gracias por compartir!",
+                            })
                             }}>
                             <svg className="fill-black dark:fill-white w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M208 0H332.1c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9V336c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V48c0-26.5 21.5-48 48-48zM48 128h80v64H64V448H256V416h64v48c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V176c0-26.5 21.5-48 48-48z"/></svg>
                             Copiar enlace
                           </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
-
-
-                    {/* Compartir */}
-                    {/* <Button
-                      type="button"
-                      variant={"secondary"}
-                      className={cn({
-                        hidden: formStep !== 4 && formStep !== 5,
-                      })}
-                    >
-                      <UploadIcon className="h-4 w-4 mr-2" />
-                      Compartir
-                  </Button> */}
-                    
+        
                     {/* Botón Siguiente */}
                     <Button
                       type="button"
                       variant={"ghost"}
                       className={cn({
-                        hidden: formStep == 0 || formStep == 3 || formStep == 5 ,
+                        hidden: formStep == 0 || formStep == 3 || formStep == 6 ,
                       })}
                       onClick={() => {
                         // validation
@@ -388,7 +383,10 @@ export default function DevaluApp() {
                               }
                         } else if (formStep == 4) {
                           setFormStep(5)
-                        }}}
+                        } else if (formStep == 5) {
+                          setFormStep(6)
+                        }
+                      }}
                     >
                       { formStep > 3 ? "Más" : "Siguiente" }
                       <ArrowRightIcon className="w-4 h-4 ml-2" />

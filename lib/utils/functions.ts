@@ -6,7 +6,7 @@ export async function fetchTodayValue(): Promise<number> {
       return data.blue.value_avg
 
     } catch (error: any) {
-        console.log('fetchTodayValue', error.message)
+      console.log('fetchTodayValue', error.message)
       console.log(error.message)
       return error.message
     }
