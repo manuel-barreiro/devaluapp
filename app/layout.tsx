@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: 'DevaluApp',
   description: 'Calculá cuanto se devaluó tu sueldo en Argentina',
   metadataBase: new URL("https://devaluapp.ar/"),
-  keywords: ['Calculadora', 'Devaluacion', 'Inflacion', 'Dolares', 'Argentina', 'Sueldo'],
+  keywords: [ 'Devaluacion', 'Inflacion','Calculadora', 'Dolares', 'Argentina', 'Sueldo'],
   alternates: {
     canonical: "https://devaluapp.ar/"
   },

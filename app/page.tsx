@@ -123,7 +123,7 @@ export default function DevaluApp() {
         setLoading(false)
         const jsConfetti = new JSConfetti()
         jsConfetti.addConfetti({
-          emojis: ['💵'],
+          emojis: ['💵','🔥'],
           emojiSize: 60,
           confettiNumber: 200,
           // confettiColors: [
