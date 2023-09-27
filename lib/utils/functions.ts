@@ -8,7 +8,7 @@ export async function fetchTodayValue(): Promise<number> {
     } catch (error: any) {
       console.log('fetchTodayValue', error.message)
       console.log(error.message)
-      return error.message
+      return error
     }
   }
 
@@ -34,7 +34,7 @@ export async function fetchValue(date: Date | undefined): Promise<number> {
 
     } catch (error: any) {
         console.log('fetchValue', error.message)
-        return error.message
+        return error
     }
     
   }

@@ -98,13 +98,13 @@ export default function Result({
       {/* Dolares Fecha vs Dolares Hoy */}
       <div className={cn("self-center h-auto flex flex-col gap-3", {hidden: formStep !== 6} )}>
 
-        <span className="font-black text-sm sm:text-2xl bg-gradient-to-b from-gray-900 to-gray-600 
+        <p className="font-black text-md sm:text-2xl bg-gradient-to-b from-gray-900 to-gray-600 
             dark:bg-gradient-to-r dark:from-slate-300 dark:to-slate-500 bg-clip-text text-transparent">
-              Deberías cobrar: 
-        </span>
+              Deberías estar cobrando: 
+        </p>
 
         {isLoading ? (
-            <Skeleton className="w-full h-8" />
+            <Skeleton className="w-full h-full" />
           ) : (
             <p className={cn("text-3xl sm:text-6xl font-black",
               resultado.porcentajeDevaluación > 0 ? "bg-gradient-to-r from-red-500 to-red-800 bg-clip-text text-transparent" : "bg-gradient-to-r from-green-500 to-green-800 bg-clip-text text-transparent"
@@ -113,10 +113,10 @@ export default function Result({
             </p>
           )} 
 
-        <span className="font-black text-sm sm:text-2xl bg-gradient-to-b from-gray-900 to-gray-600 
+        <p className="font-black text-md sm:text-2xl bg-gradient-to-b from-gray-900 to-gray-600 
             dark:bg-gradient-to-r dark:from-slate-300 dark:to-slate-500 bg-clip-text text-transparent">
-              para mantener tu poder adquisitivo.
-        </span>
+              Para mantener el poder poder adquisitivo que tenías cuando recibiste tu último aumento.
+        </p>
 
       </div>  
         

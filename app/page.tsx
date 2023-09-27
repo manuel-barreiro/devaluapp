@@ -51,6 +51,7 @@ import { es } from "date-fns/locale"
 import Result from "@/components/Result"
 import { Progress } from "@/components/ui/progress"
 import ThemeToggler from "@/components/ThemeToggler"
+import { Label } from "@/components/ui/label"
 
 
 const formSchema = z.object({
@@ -61,7 +62,7 @@ const formSchema = z.object({
   .int({message: 'Ingresá un número entero.'})
   .positive({	message: 'El valor ingresado debe ser > 0' })
   // .gte(5000, {	message: '¿Posta cobrás eso?' })
-  .lte(999999999, {	message: 'Si te garparan eso no estarías acá.' }),
+  .lte(99999999, {	message: 'Si te garparan eso no estarías acá.' }),
 
   fechaUltimoAumento: z.date({
     required_error: "Ingrese la fecha.",
@@ -106,23 +107,22 @@ export default function DevaluApp() {
   const [isLoading, setLoading] = useState(true)
 
   // useEffect para monitorear los cambios en las variables sueldo y fechaUltimoAumento y resultado
-  useEffect(() => {
-    console.log("Sueldo ingresado:", sueldoIngresado);
-    console.log("Fecha ingresado:", fechaIngresada);
-    console.log("Resultado ingresado:", resultado);
-    console.log("PASO:", formStep)   
-  }, [sueldoIngresado, fechaIngresada, resultado, formStep])
+  // useEffect(() => {
+  //   console.log("Sueldo ingresado:", sueldoIngresado);
+  //   console.log("Fecha ingresado:", fechaIngresada);
+  //   console.log("Resultado ingresado:", resultado);
+  //   console.log("PASO:", formStep)   
+  // }, [sueldoIngresado, fechaIngresada, resultado, formStep])
 
   // FORM SUBMIT HANDLER
+  
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setFormStep(4)
+    try {
       const res = await fetch('/api/calculoDevaluacion', {
         method: 'POST', 
         body: JSON.stringify(values)
       })
-      if (!res.ok) {
-        throw new Error('Boca')
-      }
       const data = await res.json()
       console.log(data)
       setResultado(data)
@@ -136,7 +136,9 @@ export default function DevaluApp() {
         //   '#22c55e',
         // ],
       })
-     
+    } catch (error) {
+      throw new Error()
+    } 
   }
   
 
@@ -180,11 +182,11 @@ export default function DevaluApp() {
                   name="sueldo"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
-                      <FormLabel className="text-md sm:text-lg">Ingresá tu sueldo en pesos.</FormLabel>
+                      <Label className="text-md sm:text-lg">Ingresá tu sueldo en pesos.</Label>
                       <FormControl>
                         <Input type="number" {...field} value={field.value || ''} className="bg-primary/20 border border-primary/60 p-6 text-2xl text-center font-bold rounded-md max-w-[600px]"/>
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-md text-red-500" />
                     </FormItem>
                   )}
                 />
@@ -198,7 +200,7 @@ export default function DevaluApp() {
                 name="fechaUltimoAumento"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel className="text-md sm:text-lg">¿Desde cuándo cobrás ese monto?</FormLabel>
+                    <Label className="text-md sm:text-lg">¿Desde cuándo cobrás ese monto?</Label>
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
                         <FormControl>
@@ -234,7 +236,7 @@ export default function DevaluApp() {
                         </div>
                       </AlertDialogContent>
                     </AlertDialog>
-                    <FormMessage />
+                    <FormMessage className="text-md text-red-500" />
                   </FormItem>
                 )}
                 />
