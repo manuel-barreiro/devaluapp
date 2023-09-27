@@ -4,6 +4,8 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Inter } from 'next/font/google'
 import { Toaster } from "@/components/ui/toaster"
 import Image from 'next/image'
+import React from "react";
+import Script from "next/script";
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -31,7 +33,17 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
+
     <html lang="es" suppressHydrationWarning={true}>
+      <Script src="https://scripts.simpleanalyticscdn.com/latest.js"  />
+      <noscript>
+        {/* eslint-disable @next/next/no-img-element */}
+        <img
+          src="https://queue.simpleanalyticscdn.com/noscript.gif"
+          alt=""
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+      </noscript>
       <body className={inter.className}>
         <ThemeProvider
             attribute="class"
