@@ -37,7 +37,7 @@ export default function RootLayout({
     <html lang="es" suppressHydrationWarning={true}>
       <Script src="https://scripts.simpleanalyticscdn.com/latest.js"  />
       <noscript>
-        {/* eslint-disable @next/next/no-img-element */}
+        eslint-disable @next/next/no-img-element
         <img
           src="https://queue.simpleanalyticscdn.com/noscript.gif"
           alt=""

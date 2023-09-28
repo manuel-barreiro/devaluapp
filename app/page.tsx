@@ -6,7 +6,6 @@ import * as z from "zod"
 import JSConfetti from 'js-confetti'
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
-import Image from "next/image"
 import {
   TwitterShareButton,
   WhatsappShareButton,
@@ -15,10 +14,8 @@ import { useToast  } from "@/components/ui/use-toast"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form"
 import {
@@ -26,8 +23,6 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
@@ -36,18 +31,16 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ArrowLeftIcon, ArrowRightIcon, ArrowTopRightIcon, CalendarIcon, PaperPlaneIcon, UploadIcon } from "@radix-ui/react-icons"
 import { addDays, format, set } from "date-fns"
 import { cn } from "@/lib/utils"
 import { es } from "date-fns/locale"
-
 import Result from "@/components/Result"
 import { Progress } from "@/components/ui/progress"
 import ThemeToggler from "@/components/ThemeToggler"

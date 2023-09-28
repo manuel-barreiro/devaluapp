@@ -115,7 +115,7 @@ export default function Result({
 
         <p className="font-black text-md sm:text-2xl bg-gradient-to-b from-gray-900 to-gray-600 
             dark:bg-gradient-to-r dark:from-slate-300 dark:to-slate-500 bg-clip-text text-transparent">
-              Para mantener el poder poder adquisitivo que tenías cuando recibiste tu último aumento.
+              Para mantener el poder adquisitivo que tenías cuando recibiste tu último aumento.
         </p>
 
       </div>  
