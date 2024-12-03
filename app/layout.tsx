@@ -35,15 +35,6 @@ export default function RootLayout({
   return (
 
     <html lang="es" suppressHydrationWarning={true}>
-      <Script src="https://scripts.simpleanalyticscdn.com/latest.js"  />
-      <noscript>
-        eslint-disable @next/next/no-img-element
-        <img
-          src="https://queue.simpleanalyticscdn.com/noscript.gif"
-          alt=""
-          referrerPolicy="no-referrer-when-downgrade"
-        />
-      </noscript>
       <body className={inter.className}>
         <ThemeProvider
             attribute="class"
@@ -56,7 +47,7 @@ export default function RootLayout({
               <div className='flex items-center'>
                 <p className="flex items-center gap-2 mt-5 font-bold text-xs bg-gradient-to-b from-gray-900 to-gray-600 
                     dark:bg-gradient-to-r dark:from-slate-300 dark:to-slate-500 bg-clip-text text-transparent">
-                  Developed by <a href="https://manuel-barreiro.com/" target="_blank"><Image priority={true} src={'/logo.svg'} width={40} height={40} alt="logo" /></a> |
+                  Developed by <a href="https://mbarreiro.dev/" target="_blank"><Image priority={true} src={'/logo.svg'} width={40} height={40} alt="logo" /></a> |
                 </p>
 
                 <p className="ml-2 flex items-center gap-2 mt-5 font-bold text-xs bg-gradient-to-b from-gray-900 to-gray-600 

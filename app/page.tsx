@@ -1,6 +1,7 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import { NumericFormat } from 'react-number-format';
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import JSConfetti from 'js-confetti'
@@ -177,7 +178,18 @@ export default function DevaluApp() {
                     <FormItem className="flex flex-col">
                       <Label className="text-md sm:text-lg">Ingresá tu sueldo en pesos.</Label>
                       <FormControl>
-                        <Input type="number" {...field} value={field.value || ''} className="bg-primary/20 border border-primary/60 p-6 text-2xl text-center font-bold rounded-md max-w-[600px]"/>
+                      <NumericFormat 
+  value={field.value}
+  thousandSeparator="."
+  decimalSeparator=","
+  prefix="$ "
+  decimalScale={0}
+  fixedDecimalScale
+  className="bg-primary/20 border border-primary/60 p-2 text-2xl text-center w-auto font-bold rounded-md max-w-[300px]"
+  onValueChange={(values) => {
+    field.onChange(values.floatValue);
+  }}
+/>
                       </FormControl>
                       <FormMessage className="text-md text-red-500" />
                     </FormItem>
